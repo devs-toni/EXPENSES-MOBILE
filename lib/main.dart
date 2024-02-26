@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appTitle,
-      color: Colors.black12,
+      color: const Color.fromARGB(255, 0, 175, 175),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255,0,175,177)),
-        useMaterial3: true,
+        useMaterial3: true, 
       ),
       home: const Login(),
     );
