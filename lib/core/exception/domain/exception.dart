@@ -1,16 +1,16 @@
 class Exception {
-  int status_code = 0;
+  int statusCode = 0;
   String type = '';
   String detail = '';
 
-  Exception(int status_code, String type, String detail) {
-    this.status_code = status_code;
-    this.type = type;
-    this.detail = detail;
+  Exception(int statusCode, String type, String detail) {
+    this.statusCode;
+    this.type;
+    this.detail;
   }
 
   Exception.fromJson(Map<String, dynamic> json) {
-    status_code = int.parse(json['status_code']);
+    statusCode = int.parse(json['status_code']);
     type = json['type'];
     detail = json['detail'];
   }

@@ -1,24 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:expenses/core/user/domain/register_user.dart';
 import 'package:http/http.dart' as http;
-import 'package:expenses/utils/debug.dart';
 import 'package:http/http.dart';
 
-class ApiClient {
-  Future<String> registerUser(Map<String, dynamic>? userData) async {
+class UserApiClient {
+  Future<Map<String, dynamic>> registerUser(RegisterUser userData) async {
     try {
-      Response response =
-          await http.post(Uri.http('10.0.2.2:8000', '/user'), body: userData);
-      return response.body;
+      Response response = await http.post(Uri.http('10.0.2.2:8000', '/user/'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(userData.toJson()));
+      return jsonDecode(response.body);
     } on HttpException catch (e) {
-      return e.message;
+      return jsonDecode(e.message);
     }
   }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final data = {'email': email, 'password': password};
-      LoggerDegub.warning(data.toString());
+
       Response response = await http.post(
           Uri.http('10.0.2.2:8000', '/user/login'),
           body: jsonEncode(data),
@@ -29,7 +30,6 @@ class ApiClient {
 
       return jsonDecode(response.body);
     } on HttpException catch (e) {
-      LoggerDegub.error(e.message);
       return jsonDecode(e.message);
     }
   }
@@ -44,13 +44,17 @@ class ApiClient {
     }
   }
 
-  Future<String> logout() async {
+  Future<Map<String, dynamic>> logout(String token) async {
     try {
       Response response = await http.get(
-        Uri.http('10.0.2.2:8000' ,'/user/logout'));
-      return response.body;
+          Uri.http(
+            '10.0.2.2:8000',
+            '/user/logout',
+          ),
+          headers: {'Authorization': 'Bearer $token'});
+      return jsonDecode(response.body);
     } on HttpException catch (e) {
-      return e.message;
+      return jsonDecode(e.message);
     }
   }
 }

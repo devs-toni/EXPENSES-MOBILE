@@ -1,5 +1,6 @@
 import 'package:expenses/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() => runApp(const MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true, 
       ),
       home: const Login(),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -4,12 +4,7 @@ class LoginResult {
   String email = '';
   String token = '';
 
-  LoginResult(String firstname, String lastname, String email, String token) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.token = token;
-  }
+  LoginResult(this.firstname, this.lastname, this.email, this.token);
 
   LoginResult.fromJson(Map<String, dynamic> json) {
     firstname = json['firstname'];
